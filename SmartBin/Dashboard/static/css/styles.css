@@ -1,0 +1,99 @@
+/* navbar styles */
+body {
+    display: flex;
+}
+
+.sidebar {
+    width: 220px;
+    height: 100vh;
+    position: fixed;
+    background: #343a40;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sidebar .nav-link {
+    color: #fff;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+}
+
+.sidebar .nav-link:hover {
+    background: #495057;
+}
+.sidebar .nav-link i {
+    margin-right: 10px;
+}
+
+.logout {
+    margin-top: auto;
+    margin-bottom: 20px;
+}
+
+/* dashboard styles */
+.content {
+    margin-left: 220px;
+    margin-top: 30px;
+    padding: 20px;
+    width: 100%;
+}
+
+.bin-stats-container {
+    display: flex;
+    gap: 15px;
+}
+
+.bin-card {
+    color: white;
+    text-align: center;
+    padding: 10px;
+    border-radius: 8px;
+    width: 200px;
+}
+.bin-card .card-body {
+    text-align: center;
+}
+.bin-card .card-title {
+    font-size: 1.75rem;
+    font-weight: bold;
+}
+.text-center {
+    margin-bottom: 10px;
+}
+
+.bin-table-container {
+    margin-top: 20px;
+}
+.bin-table-container .card-title {
+    font-weight: bold;
+}
+
+.bin-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.bin-table th,
+.bin-table td {
+    padding: 10px;
+    text-align: left;
+}
+.bin-table th {
+    font-weight: bold;
+    background-color: white;
+}
+
+/* Reminders Section */
+.reminders-container {
+    margin-top: 20px;
+}
+
+.reminders-table {
+    width: 100%;
+    text-align: left;
+}
