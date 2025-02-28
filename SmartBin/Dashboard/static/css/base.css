@@ -1,1 +1,5 @@
-img.huechange { filter: hue-rotate(120deg); }
+:root {
+    --light-green: #38b000;
+    --dark-green: #006400;
+    --orange: #ffa200
+}

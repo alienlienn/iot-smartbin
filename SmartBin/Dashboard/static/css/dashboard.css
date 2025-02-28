@@ -1,0 +1,9 @@
+img.huechange { filter: hue-rotate(120deg); }
+
+.bg-green {
+    background-color: var(--light-green);
+}
+
+.bg-dark-green {
+    background-color: var(--dark-green);
+}
