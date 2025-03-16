@@ -21,5 +21,6 @@ from django.views.generic import RedirectView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('dashboard/', include('Dashboard.urls')),
+    path('websocket/', include('WebSocket.urls')),
     path('', RedirectView.as_view(url='/dashboard/', permanent=False)),
 ]

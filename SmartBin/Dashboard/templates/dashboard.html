@@ -100,38 +100,12 @@
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Name</th>
                                             <th>Location</th>
-                                            <th>Connection</th>
-                                            <th>Fullness</th>
-                                            <th>Battery</th>
+                                            <th>Status</th>
+                                            <th>Last Seen</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <th>1</th>
-                                            <td>Dname1</td>
-                                            <td>10th Street</td>
-                                            <td>Online</td>
-                                            <td>31%</td>
-                                            <td>36%</td>
-                                        </tr>
-                                        <tr>
-                                            <th>2</th>
-                                            <td>Dname2</td>
-                                            <td>50th Road</td>
-                                            <td>Online</td>
-                                            <td>37%</td>
-                                            <td>87%</td>
-                                        </tr>
-                                        <tr>
-                                            <th>3</th>
-                                            <td>Dname3</td>
-                                            <td>2nd Avenue</td>
-                                            <td>Offline</td>
-                                            <td>-</td>
-                                            <td>-</td>
-                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -176,6 +150,41 @@
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous">
     </script>
+    <script>
+        const socket = new WebSocket("ws://localhost:8000/ws/dashboard/");
+    
+        socket.onmessage = function(event) {
+            const data = JSON.parse(event.data);
+            console.log(data);
+            updateTable(data);
+        };
+    
+        socket.onopen = function() {
+            console.log("WebSocket connection opened.");
+        };
+    
+        socket.onclose = function() {
+            console.log("WebSocket connection closed.");
+        };
+
+        function updateTable(data) {
+            const table = document.querySelector(".bin-table tbody");
+            table.innerHTML = "";
+            for (const [deviceId, values] of Object.entries(data)) {
+                    let row = document.createElement("tr");
+
+                    row.innerHTML = `
+                        <td>${deviceId}</td>
+                        <td>${values.coord ? values.coord.join(", ") : "N/A"}</td>
+                        <td>${values.status}</td>
+                        <td>${values.last_seen}</td>
+                    `;
+
+                    table.appendChild(row);
+                }
+        }
+    </script>
+    
     {% block scripts %}{% endblock scripts %}
 
 </body>

@@ -31,12 +31,15 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'channels',
+    'WebSocket',
     'Dashboard',
 ]
 
@@ -70,7 +73,15 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'SmartBin.wsgi.application'
+ASGI_APPLICATION = 'SmartBin.asgi.application'
+
+# Channels
+# https://channels.readthedocs.io/en/stable/
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer",
+    },
+}
 
 
 # Database
