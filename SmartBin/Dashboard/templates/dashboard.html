@@ -47,7 +47,7 @@
                     <div class="col-2">
                         <div class="card bin-card bg-success">
                             <div class="card-body">
-                                <h5 class="card-title">0</h5>
+                                <h5 id="emptyBins" class="card-title">0</h5>
                                 <p class="card-text">Empty Bins</p>
                             </div>
                             <div class="text-center">
@@ -58,7 +58,7 @@
                     <div class="col-2">
                         <div class="card bin-card bg-warning">
                             <div class="card-body">
-                                <h5 class="card-title">44</h5>
+                                <h5 id="halfBins" class="card-title">0</h5>
                                 <p class="card-text">Half Bins</p>
                             </div>
                             <div class="text-center">
@@ -69,7 +69,7 @@
                     <div class="col-2">
                         <div class="card bin-card bg-danger">
                             <div class="card-body">
-                                <h5 class="card-title">5</h5>
+                                <h5 id="fullBins" class="card-title">0</h5>
                                 <p class="card-text">Full Bins</p>
                             </div>
                             <div class="text-center">
@@ -80,7 +80,7 @@
                     <div class="col-2">
                         <div class="card bin-card bg-secondary">
                             <div class="card-body">
-                                <h5 class="card-title">0</h5>
+                                <h5 id="offlineBins" class="card-title">0</h5>
                                 <p class="card-text">Offline</p>
                             </div>
                             <div class="text-center">
@@ -155,7 +155,6 @@
     
         socket.onmessage = function(event) {
             const data = JSON.parse(event.data);
-            console.log(data);
             updateTable(data);
         };
     
@@ -168,20 +167,30 @@
         };
 
         function updateTable(data) {
+            document.getElementById("fullBins").innerText = 0;
+            document.getElementById("halfBins").innerText = 0;
+            document.getElementById("emptyBins").innerText = 0;
             const table = document.querySelector(".bin-table tbody");
             table.innerHTML = "";
             for (const [deviceId, values] of Object.entries(data)) {
-                    let row = document.createElement("tr");
-
-                    row.innerHTML = `
-                        <td>${deviceId}</td>
-                        <td>${values.coord ? values.coord.join(", ") : "N/A"}</td>
-                        <td>${values.status}</td>
-                        <td>${values.last_seen}</td>
-                    `;
-
-                    table.appendChild(row);
+                if (values.status === "FULL") {
+                    document.getElementById("fullBins").innerText = parseInt(document.getElementById("fullBins").innerText) + 1;
+                } else if (values.status === "OK") {
+                    document.getElementById("halfBins").innerText = parseInt(document.getElementById("halfBins").innerText) + 1;
+                } else if (values.status === "EMPTY") {
+                    document.getElementById("emptyBins").innerText = parseInt(document.getElementById("emptyBins").innerText) + 1;
+                } else {
+                    document.getElementById("offlineBins").innerText = parseInt(document.getElementById("offlineBins").innerText) + 1;
                 }
+                let row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${deviceId}</td>
+                    <td>${values.coord ? values.coord.join(", ") : "N/A"}</td>
+                    <td>${values.status}</td>
+                    <td>${values.last_seen}</td>
+                `;
+                table.appendChild(row);
+            }
         }
     </script>
     
