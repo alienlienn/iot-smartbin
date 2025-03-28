@@ -6,3 +6,6 @@ import json
 # Create your views here.
 def dashboard(request):
     return render(request, "dashboard.html")
+
+def bin_detail(request, bin_id):
+    return render(request, "bin_detail.html", {"bin_id": bin_id})

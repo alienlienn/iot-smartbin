@@ -97,3 +97,8 @@ body {
     width: 100%;
     text-align: left;
 }
+
+.binInfo {
+    margin-top: 30px;
+    font-size: 80px;
+}
