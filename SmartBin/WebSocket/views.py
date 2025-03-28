@@ -13,15 +13,23 @@ def receive_data(request):
             
             records = []
             for device_id, values in data.items():
-                records.append(SensorData(
+                # Create new SensorData instance
+                sensor_data = SensorData(
                     device_id=device_id,
                     last_seen=values.get("last_seen"),
                     status=values.get("status"),
-                    coord=values.get("coord")
-                ))
+                    next_nearest=values.get("next_nearest"),
+                    next_nearest_direction=values.get("next_nearest_direction")
+                )
+                
+                # Set coordinates using the property setter
+                sensor_data.coord = values.get("coord")
+                
+                records.append(sensor_data)
 
             SensorData.objects.bulk_create(records)
 
+            # Broadcast update to WebSocket clients
             channel_layer = get_channel_layer()
             async_to_sync(channel_layer.group_send)(
                 "dashboard",

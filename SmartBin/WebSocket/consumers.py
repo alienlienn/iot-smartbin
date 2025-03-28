@@ -1,20 +1,23 @@
-import json
 from channels.generic.websocket import AsyncWebsocketConsumer
+import json
 
 class DashboardConsumer(AsyncWebsocketConsumer):
     async def connect(self):
-        await self.channel_layer.group_add("dashboard", self.channel_name)
+        # Join the dashboard group
+        await self.channel_layer.group_add(
+            "dashboard",
+            self.channel_name
+        )
         await self.accept()
 
     async def disconnect(self, close_code):
-        await self.channel_layer.group_discard("dashboard", self.channel_name)
-
-    async def receive(self, text_data):
-        data = json.loads(text_data)
-        await self.channel_layer.group_send(
+        # Leave the dashboard group
+        await self.channel_layer.group_discard(
             "dashboard",
-            {"type": "dashboard_update", "data": data}
+            self.channel_name
         )
 
+    # Receive message from the dashboard group
     async def dashboard_update(self, event):
+        # Send message to WebSocket
         await self.send(text_data=json.dumps(event["data"]))
