@@ -21,7 +21,7 @@
     {% block styles %}{% endblock styles %}
 </head>
 
-<body>
+<body class="bg-light vh-100">
     <div class="sidebar">
         <a href="#" class="nav-link">
             <i class="bi bi-person"></i>
@@ -44,54 +44,34 @@
             <div class="col-12">
                 <!-- Bin Statistics Section -->
                 <div class="row bin-stats-container">
-                    <div class="col-2">
-                        <div class="card bin-card bg-success">
+                    <div class="col-3">
+                        <div class="card bin-card bg-success w-100">
                             <div class="card-body">
                                 <h5 id="emptyBins" class="card-title">0</h5>
-                                <p class="card-text">Empty Bins</p>
-                            </div>
-                            <div class="text-center">
-                                <a class="text-white">More Info</a>
+                                <p class="card-text">OK Bins</p>
                             </div>
                         </div>
                     </div>
-                    <div class="col-2">
-                        <div class="card bin-card bg-warning">
-                            <div class="card-body">
-                                <h5 id="halfBins" class="card-title">0</h5>
-                                <p class="card-text">Half Bins</p>
-                            </div>
-                            <div class="text-center">
-                                <a class="text-white">More Info</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-2">
-                        <div class="card bin-card bg-danger">
+                    <div class="col-3">
+                        <div class="card bin-card bg-danger w-100">
                             <div class="card-body">
                                 <h5 id="fullBins" class="card-title">0</h5>
                                 <p class="card-text">Full Bins</p>
                             </div>
-                            <div class="text-center">
-                                <a class="text-white">More Info</a>
-                            </div>
                         </div>
                     </div>
-                    <div class="col-2">
-                        <div class="card bin-card bg-secondary">
+                    <div class="col-3">
+                        <div class="card bin-card bg-secondary w-100">
                             <div class="card-body">
                                 <h5 id="offlineBins" class="card-title">0</h5>
                                 <p class="card-text">Offline</p>
-                            </div>
-                            <div class="text-center">
-                                <a class="text-white">More Info</a>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Bin Table Section -->
-                <div class="row bin-table-container mt-4">
+                <div class="row bin-table-container">
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
@@ -116,7 +96,7 @@
                 </div>
 
                 <!-- Reminders Section -->
-                <div class="row reminders-container mt-4">
+                <!-- <div class="row reminders-container mt-4">
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
@@ -142,7 +122,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
         {% endblock content %}
@@ -171,7 +151,6 @@
         function updateTable(data) {
             // Reset counters
             document.getElementById("fullBins").innerText = 0;
-            document.getElementById("halfBins").innerText = 0;
             document.getElementById("emptyBins").innerText = 0;
             document.getElementById("offlineBins").innerText = 0;
             
@@ -189,9 +168,7 @@
                 // Update counter based on status
                 if (status === "FULL") {
                     document.getElementById("fullBins").innerText = parseInt(document.getElementById("fullBins").innerText) + 1;
-                } else if (status === "OK") {
-                    document.getElementById("halfBins").innerText = parseInt(document.getElementById("halfBins").innerText) + 1;
-                } else if (status === "EMPTY") {
+                } else if (status === "EMPTY" || status === "OK") {
                     document.getElementById("emptyBins").innerText = parseInt(document.getElementById("emptyBins").innerText) + 1;
                 } else if (status === "OFFLINE") {
                     document.getElementById("offlineBins").innerText = parseInt(document.getElementById("offlineBins").innerText) + 1;
@@ -205,10 +182,6 @@
                     row.className = "table-danger";
                 } else if (status === "OFFLINE") {
                     row.className = "table-secondary";
-                } else if (status === "EMPTY") {
-                    row.className = "table-success";
-                } else if (status === "OK") {
-                    row.className = "table-warning";
                 }
                 
                 // Format coordinates for display
