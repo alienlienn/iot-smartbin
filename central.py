@@ -19,14 +19,11 @@ BEACON_COM_PORT = 'COM5'  # Port for beacon communication
 BAUD_RATE = 9600
 
 # Server settings
-DJANGO_SERVER_URL = "http://127.0.0.1:8000/websocket/dashboard"
+DJANGO_SERVER_URL = "http://172.20.10.5:8000/websocket/dashboard"
 
 # RSSI to distance conversion parameters
 RSSI_REF = -120  # RSSI at 4 meter distance
 N = 2.5          # Path loss exponent
-
-# Message type definitions
-NAVIGATION_MSG = "NAV_DATA"  # Message type for navigation data
 
 # Shared data structures
 beacon_data = defaultdict(dict)
@@ -154,21 +151,6 @@ def send_data_to_server(routing_table):
         print(f"Error sending data to server: {e}")
         return False
 
-def send_navigation_data(ser, destination_id, next_nearest_id, direction):
-    """Send navigation data through serial to LoRa gateway"""
-    nav_data = {
-        "type": NAVIGATION_MSG,
-        "dest": destination_id,
-        "next": next_nearest_id,
-        "dir": direction
-    }
-    
-    # Convert to JSON and send
-    json_data = json.dumps(nav_data)
-    print(f"Sending navigation data: {json_data}")
-    for i in range(9):
-        ser.write(f"{json_data}\n".encode('utf-8'))
-
 def handle_mesh_serial(mesh_ser):
     """Thread function to handle mesh serial communication"""
     print(f"Mesh serial thread started on {MESH_COM_PORT}")
@@ -188,10 +170,10 @@ def handle_mesh_serial(mesh_ser):
                             print(f"Mesh: {parts}")
                             if len(parts) >= 9 and "Last" in parts and "Status" in parts:
                                 try:
-                                    # Extract node ID (should be after "Node")
+                                    # Extract node ID
                                     node_id = int(parts[1])
                                     
-                                    # Find the last seen value (look for number before "s ago")
+                                    # Find the last seen value
                                     last_seen = 0
                                     for i in range(len(parts)):
                                         if i < len(parts) - 1 and parts[i+1] == "ago" and parts[i].endswith("s"):
@@ -205,7 +187,7 @@ def handle_mesh_serial(mesh_ser):
                                                 print(f"Mesh: Error converting last seen value: {parts[i]}")
                                                 pass
                                     
-                                    # Find status (should be after "Status")
+                                    # Find status
                                     status = "UNKNOWN"
                                     for i in range(len(parts)):
                                         if parts[i] == "Status:" or parts[i] == "Status":
@@ -300,7 +282,6 @@ def handle_beacon_serial(beacon_ser):
                         if line:
                             print(f"Beacon: {line}")
                 except json.JSONDecodeError:
-                    # Skip reporting errors for non-JSON lines
                     pass
                 except Exception as e:
                     print(f"Beacon: Error processing data: {e}")
@@ -314,7 +295,7 @@ def main_processing_thread():
     """Main processing thread that handles routing table updates and server communication"""
     print("Main processing thread started")
     
-    # Define timeout threshold in seconds
+    # Timeout threshold
     OFFLINE_THRESHOLD = 120 # 2 minutes
     last_sent_time = 0
     
@@ -345,14 +326,13 @@ def main_processing_thread():
                     was_full = bin_data.get("was_full", False)
                     is_full_now = bin_data.get("status") == "FULL"
                     
-                    # If bin was full but is now OK, clear its navigation data
+                    # If bin was full but is now OK
                     if was_full and not is_full_now:
-                        # Remove navigation data
                         if "next_nearest" in bin_data:
                             del bin_data["next_nearest"]
                         if "next_nearest_direction" in bin_data:
                             del bin_data["next_nearest_direction"]
-                        print(f"Processing: Bin {bin_id} is no longer FULL - cleared navigation data")
+                        print(f"Processing: Bin {bin_id} is no longer FULL")
                     
                     # If bin is FULL, find nearest available bin
                     if is_full_now:
