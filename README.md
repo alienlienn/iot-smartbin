@@ -52,10 +52,11 @@ pip install -r requirements.txt
 1. Connect the ultrasonic trigger to pin 3 on the LoRa RFM shield.
 2. Connect the ultrasonic echo to pin 4 on the shield.
 3. Connect VCC and GND on the shield
-4. Utilize the Bin Node Code to set up the system. Update the node number within the code as required.
+4. Utilize the bin node code to set up the system. Update the node number within the code as required.
 5. Run the updated code on your computer to activate the smart bin functionality.
 
 ## Beacons Set-up
-
+1. Utilize the beacon code to set up the system. Update the beacon number within the code as required.
+2. Run the updated code on your computer to activate the beacon functionality.
 
 
