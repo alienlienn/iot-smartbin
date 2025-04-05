@@ -44,6 +44,7 @@ pip install -r requirements.txt
 ## Usage
 
 - Start the Django server to view the dashboard at `http://localhost:8000`
+- Ensure the 2 LoRa running the receiver codes are plugged into correct COM port
 - Run `central.py` to listen for incoming LoRa data
 - When a bin's fill level exceeds a threshold, it will be flagged on the dashboard
 - Location of bins is updated based on triangulated data from fixed beacons
