@@ -9,6 +9,8 @@ A smart trash bin system utilising LoRa devices for bin fill level and location 
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Usage](#usage)
+- [Bins Set-up](#bins-set-up)
+- [Beacons Set-up](#beacons-set-up)
 
 ## About
 
@@ -53,7 +55,7 @@ pip install -r requirements.txt
 4. Utilize the Bin Node Code to set up the system. Update the node number within the code as required.
 5. Run the updated code on your computer to activate the smart bin functionality.
 
-## Beacon Set-up
+## Beacons Set-up
 
 
 
