@@ -1,31 +1,47 @@
-# Project Title
+# IOT Smart Trash Bin System
 
-A brief description of what this project does and who it's for.
+A smart trash bin system utilising LoRa devices for bin fill level and location monitoring and real-time tracking on a Django dashboard.
 
 ## Table of Contents
 
 - [About](#about)
 - [Features](#features)
+- [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
-- [Contact](#contact)
 
 ## About
 
-Provide a longer description of your project here. Include the problem it solves, why it matters, and what makes it special.
+The system uses multiple LoRa modules to form a mesh network that enables seamless communication between smart bins. Ultrasonic sensors monitor bin fill levels in real-time, with notifications displayed on a Django dashboard. The system also includes a triangulation-based location feature using three fixed LoRa beacons to determine the relative distance between bins.
 
 ## Features
 
-- ✅ Feature 1
-- ✅ Feature 2
-- ✅ Feature 3
+- Real-time bin fill level monitoring via ultrasonic sensors
+- Mesh network communication between bins using LoRa
+- Triangulation-based bin location tracking with 3 LoRa beacons
+- Django dashboard with live status monitoring
+- WebSocket integration for live data updates
+
+## Prerequisites
+
+- Python 3.9+
+- 8x LoRa hardware (e.g. Cytron Maker Uno with RFM LoRa Shield)
+- 3x Utrasonic Sensor
 
 ## Installation
 
-Clone the repository:
+1. Clone the repository:
+```
+git clone https://github.com/alienlienn/iot-smartbin.git
+```
+2. Download dependency
+```
+pip install -r requirements.txt
+```
 
-```bash
-git clone https://github.com/your-username/your-repo.git
-cd your-repo
+## Usage
+
+- Start the Django server to view the dashboard at `http://localhost:8000`
+- Run `central.py` to listen for incoming LoRa data
+- When a bin's fill level exceeds a threshold, it will be flagged on the dashboard
+- Location of bins is updated based on triangulated data from fixed beacons
