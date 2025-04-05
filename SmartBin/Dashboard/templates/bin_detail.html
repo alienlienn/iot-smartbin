@@ -57,7 +57,7 @@
         crossorigin="anonymous">
     </script>
     <script>
-        const socket = new WebSocket("ws://localhost:8000/ws/dashboard/");
+        const socket = new WebSocket("ws://172.20.10.5:8000/ws/dashboard/");
     
         socket.onmessage = function(event) {
             const data = JSON.parse(event.data);

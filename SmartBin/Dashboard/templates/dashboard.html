@@ -133,7 +133,7 @@
         crossorigin="anonymous">
     </script>
     <script>
-        const socket = new WebSocket("ws://localhost:8000/ws/dashboard/");
+        const socket = new WebSocket("ws://172.20.10.5:8000/ws/dashboard/");
     
         socket.onmessage = function(event) {
             const data = JSON.parse(event.data);
@@ -198,10 +198,7 @@
                 }
                 
                 // Format last seen time
-                let lastSeenDisplay = values.last_seen || "N/A";
-                if (!isNaN(lastSeenDisplay)) {
-                    lastSeenDisplay = `${lastSeenDisplay} ms`;
-                }
+                let lastSeenDisplay = values.last_seen || "0";
                 
                 // Create table row with all information
                 row.innerHTML = `
