@@ -45,3 +45,15 @@ pip install -r requirements.txt
 - Run `central.py` to listen for incoming LoRa data
 - When a bin's fill level exceeds a threshold, it will be flagged on the dashboard
 - Location of bins is updated based on triangulated data from fixed beacons
+
+## Bins Set-up
+1. Connect the ultrasonic trigger to pin 3 on the LoRa RFM shield.
+2. Connect the ultrasonic echo to pin 4 on the shield.
+3. Connect VCC and GND on the shield
+4. Utilize the Bin Node Code to set up the system. Update the node number within the code as required.
+5. Run the updated code on your computer to activate the smart bin functionality.
+
+## Beacon Set-up
+
+
+
