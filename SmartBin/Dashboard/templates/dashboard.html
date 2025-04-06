@@ -22,22 +22,15 @@
 </head>
 
 <body class="bg-light vh-100">
+    <!-- Sidebar -->
     <div class="sidebar">
-        <a href="#" class="nav-link">
-            <i class="bi bi-person"></i>
-            <span>Profile</span>
-        </a>
         <a href="/dashboard" class="nav-link">
             <i class="bi bi-house-door"></i>
             <span>Dashboard</span>
         </a>
-        <a href="#" class="nav-link text-danger logout">
-            <i class="bi bi-box-arrow-right"></i>
-            <span>Logout</span>
-        </a>
     </div>
 
-    <!-- main content -->
+    <!-- Main Content -->
     <div class="content">
         {% block content %}
         <div class="row">
@@ -94,35 +87,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Reminders Section -->
-                <!-- <div class="row reminders-container mt-4">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Reminders</h5>
-                                <table class="table reminders-table">
-                                    <thead>
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>Alert Time</th>
-                                            <th>Type</th>
-                                            <th>Information</th>
-                                        </tr>   
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th>3</th>
-                                            <td>20/02/2025 4:36:32pm</td>
-                                            <td>Device Offline</td>
-                                            <td>20/02/2025 2:36:32pm</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
             </div>
         </div>
         {% endblock content %}
@@ -133,6 +97,7 @@
         crossorigin="anonymous">
     </script>
     <script>
+        // Change the WebSocket URL to match your server's address
         const socket = new WebSocket("ws://172.20.10.5:8000/ws/dashboard/");
     
         socket.onmessage = function(event) {
